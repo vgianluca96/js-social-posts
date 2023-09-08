@@ -1,36 +1,73 @@
 
-/*
-Milestone 1
-Creiamo il nostro array di oggetti che rappresentano ciascun post.
-Ogni post dovrà avere le informazioni necessarie per stampare la relativa card:
-id del post, numero progressivo da 1 a n
-nome autore,
-foto autore,
-data in formato americano (mm-gg-yyyy),
-testo del post,
-immagine (non tutti i post devono avere una immagine),
-numero di likes.
-Non è necessario creare date casuali
-Per le immagini va bene utilizzare qualsiasi servizio di placeholder ad es. Unsplash (https://unsplash.it/300/300?image=<id>)
-Milestone 2
-Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
-Milestone 3
-Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo. Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
-*/
 
-
+// Array dei post
 let posts = [
+
     {
         id: 1,
         name: 'Gianluca Vallese',
         profilePic: 'https://picsum.photos/100/100?random=1',
-        date: new Date(),
-        text: 'Questo è il testo del post',
-        image: 'https://picsum.photos/400/100?random=2',
+        date: new Date(2022,3,4),
+        text: 'Questo è il testo del post.',
+        image: 'https://picsum.photos/400/200?random=2',
         likes: 80
     }
 
 ];
 
-
 console.log(posts);
+
+// Seleziono nodi DOM
+let postsContainer = document.getElementById('postsContainer');
+
+
+for (i = 0; i < posts.length; i++) {
+
+    postMarkupCreation(postsContainer,posts);
+
+}
+
+
+
+/* Sezione function */
+
+function postMarkupCreation(postsContainer,posts) {
+    
+    let postMarkup = `
+    <div class="text-bg-light d-flex flex-column align-items-center w-50 p-3 mb-5">
+    
+        <div class="d-flex align-items-center w-100 py-2">
+    
+            <img src="${posts[i].profilePic}" width="50" class="rounded-circle" alt="">
+    
+            <div class="px-4">
+                <h5 class="p-0 m-0 mb-1">${posts[i].name}</h5>
+                <p class="p-0 m-0">${posts[i].date}</p>
+            </div>
+    
+        </div>
+        
+        <div class="w-100 py-2">
+            ${posts[i].text}
+        </div>
+    
+        <img src="${posts[i].image}" class="w-100 py-2" alt="">
+    
+        <div class="d-flex align-items-center justify-content-around w-100 py-2">
+    
+            <button id="btnLikes" class="btn btn-light fw-bold">
+                <i class="fa-solid fa-thumbs-up"></i> Mi piace
+            </button>
+    
+            <div>
+                Piace a <span class="fw-bold">${posts[i].likes}</span> persone
+            </div>
+    
+        </div>
+    
+    </div>
+    `;
+    
+    postsContainer.innerHTML += postMarkup;
+
+}

@@ -10,7 +10,17 @@ let posts = [
         date: new Date(2022,3,4),
         text: 'Questo è il testo del post.',
         image: 'https://picsum.photos/400/200?random=2',
-        likes: 80
+        likes: 96
+    },
+
+    {
+        id: 2,
+        name: 'Gianmarco Vallese',
+        profilePic: 'https://picsum.photos/100/100?random=3',
+        date: new Date(2022,9,4),
+        text: 'Questo è il testo di un altro post.',
+        image: 'https://picsum.photos/400/200?random=4',
+        likes: 112
     }
 
 ];
@@ -34,7 +44,7 @@ for (i = 0; i < posts.length; i++) {
 function postMarkupCreation(postsContainer,posts) {
     
     let postMarkup = `
-    <div class="text-bg-light d-flex flex-column align-items-center w-50 p-3 mb-5">
+    <div class="text-bg-light d-flex flex-column align-items-center w-50 p-3 mb-5 rounded">
     
         <div class="d-flex align-items-center w-100 py-2">
     

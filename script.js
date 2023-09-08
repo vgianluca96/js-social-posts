@@ -5,7 +5,8 @@ let posts = [
 
     {
         id: 1,
-        name: 'Gianluca Vallese',
+        name: 'Gianluca',
+        lastName: 'Vallese',
         profilePic: 'https://picsum.photos/100/100?random=1',
         date: new Date(2022,3,4),
         text: 'Questo è il testo del post.',
@@ -15,11 +16,12 @@ let posts = [
 
     {
         id: 2,
-        name: 'Gianmarco Vallese',
-        profilePic: 'https://picsum.photos/100/100?random=3',
+        name: 'Mario',
+        lastName: 'Rossi',
+        profilePic: '',
         date: new Date(2022,9,4),
-        text: 'Questo è il testo di un altro post.',
-        image: 'https://picsum.photos/400/200?random=4',
+        text: 'Questo è un post senza immagine.',
+        image: '',
         likes: 112
     }
 
@@ -42,17 +44,34 @@ for (i = 0; i < posts.length; i++) {
 /* Sezione function */
 
 function postMarkupCreation(postsContainer,posts) {
+
+    let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    let profilePicMarkup;
+    if (posts[i].profilePic == '') {
+
+        profilePicMarkup = `
+        <div class="rounded-circle text-bg-dark ratio ratio-1x1 p-0 m-0 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+            ${posts[i].name[0] + posts[i].lastName[0]}
+        </div>
+        `;
+
+    } else {
+        profilePicMarkup = `
+            <img src="${posts[i].profilePic}" width="50" class="rounded-circle" alt="">
+        `;
+    }
     
     let postMarkup = `
     <div class="text-bg-light d-flex flex-column align-items-center w-50 p-3 mb-5 rounded">
     
         <div class="d-flex align-items-center w-100 py-2">
     
-            <img src="${posts[i].profilePic}" width="50" class="rounded-circle" alt="">
+            ${profilePicMarkup}
     
             <div class="px-4">
-                <h5 class="p-0 m-0 mb-1">${posts[i].name}</h5>
-                <p class="p-0 m-0">${posts[i].date}</p>
+                <h5 class="p-0 m-0 mb-1">${posts[i].name + ' ' + posts[i].lastName}</h5>
+                <p class="p-0 m-0">${posts[i].date.toLocaleDateString('it-IT',dateOptions)}</p>
             </div>
     
         </div>

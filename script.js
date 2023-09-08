@@ -53,6 +53,8 @@ for (let i = 0; i < btnLikes.length; i++) {
     
 }
 
+
+
 /* Sezione function */
 
 function postMarkupCreation(postsContainer,post) {
@@ -125,7 +127,6 @@ function postMarkupCreation(postsContainer,post) {
 }
 
 
-
 function modifyLikes(post) {
 
     console.log(post)
@@ -133,29 +134,29 @@ function modifyLikes(post) {
     if (!post.likeOn) {
         
         // cambio classe al bottone
-        let btnClicked = document.getElementById('btnLikes' + post.id);
-        btnClicked.classList.remove('btn-light');
-        btnClicked.classList.add('btn-dark');
+        let btnToUpdate = document.getElementById('btnLikes' + post.id);
+        btnToUpdate.classList.remove('btn-light');
+        btnToUpdate.classList.add('btn-dark');
         post.likeOn = true;
         
         // cambio numero like
-        let likesSpan = document.getElementById('numbLikes' + post.id);
-        let likesValue = Number(likesSpan.innerHTML);
+        let likesToUpdate = document.getElementById('numbLikes' + post.id);
+        let likesValue = Number(likesToUpdate.innerHTML);
         likesValue += 1;
-        likesSpan.innerHTML = likesValue;
+        likesToUpdate.innerHTML = likesValue;
 
     } else if (post.likeOn) {
         
         // cambio classe al bottone
-        let btnClicked = document.getElementById('btnLikes' + post.id);
-        btnClicked.classList.remove('btn-dark');
-        btnClicked.classList.add('btn-light');
+        let btnToUpdate = document.getElementById('btnLikes' + post.id);
+        btnToUpdate.classList.remove('btn-dark');
+        btnToUpdate.classList.add('btn-light');
         post.likeOn = false;
         // cambio numero like
-        let likesSpan = document.getElementById('numbLikes' + post.id);
-        let likesValue = Number(likesSpan.innerHTML);
+        let likesToUpdate = document.getElementById('numbLikes' + post.id);
+        let likesValue = Number(likesToUpdate.innerHTML);
         likesValue -= 1;
-        likesSpan.innerHTML = likesValue;
+        likesToUpdate.innerHTML = likesValue;
 
     }
 

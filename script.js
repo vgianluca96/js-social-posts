@@ -34,62 +34,54 @@ console.log(posts);
 // Seleziono nodi DOM
 let postsContainer = document.getElementById('postsContainer');
 
-
 // Creo feed
-let i;
-for (i = 0; i < posts.length; i++) {
+for (let i = 0; i < posts.length; i++) {
     
-    postMarkupCreation(postsContainer,posts);
+    postMarkupCreation(postsContainer,posts[i]);
     
 }
 
 // Seleziono bottoni likes
 let btnLikes = document.querySelectorAll('button.btn');
-//console.log(btnLikes)
 
 // Creo event listener
-for (i = 0; i < btnLikes.length; i++) {
-    
-    //console.log(btnLikes[i])
-    
-    let btnId = btnLikes[i].id;
-    //console.log(btnId)
+for (let i = 0; i < btnLikes.length; i++) {
     
     btnLikes[i].addEventListener('click', function(){
-        modifyLikes(this.id, posts)
+        modifyLikes(posts[i])
     })
     
 }
 
 /* Sezione function */
 
-function postMarkupCreation(postsContainer,posts) {
+function postMarkupCreation(postsContainer,post) {
 
     let dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     let profilePicMarkup;
-    if (posts[i].profilePic == '') {
+    if (post.profilePic == '') {
 
         profilePicMarkup = `
         <div class="rounded-circle text-bg-dark ratio ratio-1x1 p-0 m-0 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-            ${posts[i].name[0] + posts[i].lastName[0]}
+            ${post.name[0] + post.lastName[0]}
         </div>
         `;
 
     } else {
         profilePicMarkup = `
-            <img src="${posts[i].profilePic}" width="50" class="rounded-circle" alt="">
+            <img src="${post.profilePic}" width="50" class="rounded-circle" alt="">
         `;
     }
 
     let postImageMarkup;
-    if (posts[i].image == '') {
+    if (post.image == '') {
 
         postImageMarkup = ``;
 
     } else {
         postImageMarkup = `
-            <img src="${posts[i].image}" class="w-100 py-2" alt="">
+            <img src="${post.image}" class="w-100 py-2" alt="">
         `;
     }
     
@@ -101,26 +93,26 @@ function postMarkupCreation(postsContainer,posts) {
             ${profilePicMarkup}
     
             <div class="px-4">
-                <h5 class="p-0 m-0 mb-1">${posts[i].name + ' ' + posts[i].lastName}</h5>
-                <p class="p-0 m-0">${posts[i].date.toLocaleDateString('it-IT',dateOptions)}</p>
+                <h5 class="p-0 m-0 mb-1">${post.name + ' ' + post.lastName}</h5>
+                <p class="p-0 m-0">${post.date.toLocaleDateString('it-IT',dateOptions)}</p>
             </div>
     
         </div>
         
         <div class="w-100 py-2">
-            ${posts[i].text}
+            ${post.text}
         </div>
 
         ${postImageMarkup}
         
         <div class="d-flex align-items-center justify-content-around w-100 py-2">
     
-            <button type="button" id="btnLikes${posts[i].id}" class="btn btn-light fw-bold">
+            <button type="button" id="btnLikes${post.id}" class="btn btn-light fw-bold">
                 <i class="fa-solid fa-thumbs-up"></i> Mi piace
             </button>
     
             <div>
-                Piace a <span id="numbLikes${posts[i].id}" class="fw-bold">${posts[i].likes}</span> persone
+                Piace a <span id="numbLikes${post.id}" class="fw-bold">${post.likes}</span> persone
             </div>
     
         </div>
@@ -134,17 +126,14 @@ function postMarkupCreation(postsContainer,posts) {
 
 
 
-function modifyLikes(btnId,posts) {
+function modifyLikes(post) {
 
-    id = btnId[btnId.length-1];
-    // Prendo il post su cui si è messo like
-    let post = posts[id-1];
     console.log(post)
 
     if (!post.likeOn) {
         
         // cambio classe al bottone
-        let btnClicked = document.getElementById(btnId);
+        let btnClicked = document.getElementById('btnLikes' + post.id);
         btnClicked.classList.remove('btn-light');
         btnClicked.classList.add('btn-dark');
         post.likeOn = true;
@@ -158,7 +147,7 @@ function modifyLikes(btnId,posts) {
     } else if (post.likeOn) {
         
         // cambio classe al bottone
-        let btnClicked = document.getElementById(btnId);
+        let btnClicked = document.getElementById('btnLikes' + post.id);
         btnClicked.classList.remove('btn-dark');
         btnClicked.classList.add('btn-light');
         post.likeOn = false;

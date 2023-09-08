@@ -11,7 +11,8 @@ let posts = [
         date: new Date(2022,3,4),
         text: 'Questo è il testo del post.',
         image: 'https://picsum.photos/400/200?random=2',
-        likes: 96
+        likes: 96,
+        likeOn: false
     },
 
     {
@@ -19,10 +20,11 @@ let posts = [
         name: 'Mario',
         lastName: 'Rossi',
         profilePic: '',
-        date: new Date(2022,9,4),
-        text: 'Questo è un post senza immagine.',
+        date: new Date(2023,7,4),
+        text: 'Questo è un post senza immagine e senza profile pic.',
         image: '',
-        likes: 112
+        likes: 112,
+        likeOn: false
     }
 
 ];
@@ -33,13 +35,31 @@ console.log(posts);
 let postsContainer = document.getElementById('postsContainer');
 
 
+// Creo feed
+let i;
 for (i = 0; i < posts.length; i++) {
-
+    
     postMarkupCreation(postsContainer,posts);
-
+    
 }
 
+// Seleziono bottoni likes
+let btnLikes = document.querySelectorAll('button.btn');
+//console.log(btnLikes)
 
+// Creo event listener
+for (i = 0; i < btnLikes.length; i++) {
+    
+    //console.log(btnLikes[i])
+    
+    let btnId = btnLikes[i].id;
+    //console.log(btnId)
+    
+    btnLikes[i].addEventListener('click', function(){
+        modifyLikes(this.id, posts)
+    })
+    
+}
 
 /* Sezione function */
 
@@ -95,12 +115,12 @@ function postMarkupCreation(postsContainer,posts) {
         
         <div class="d-flex align-items-center justify-content-around w-100 py-2">
     
-            <button id="btnLikes" class="btn btn-light fw-bold">
+            <button type="button" id="btnLikes${posts[i].id}" class="btn btn-light fw-bold">
                 <i class="fa-solid fa-thumbs-up"></i> Mi piace
             </button>
     
             <div>
-                Piace a <span class="fw-bold">${posts[i].likes}</span> persone
+                Piace a <span id="numbLikes${posts[i].id}" class="fw-bold">${posts[i].likes}</span> persone
             </div>
     
         </div>
@@ -109,5 +129,45 @@ function postMarkupCreation(postsContainer,posts) {
     `;
     
     postsContainer.innerHTML += postMarkup;
+
+}
+
+
+
+function modifyLikes(btnId,posts) {
+
+    id = btnId[btnId.length-1];
+    // Prendo il post su cui si è messo like
+    let post = posts[id-1];
+    console.log(post)
+
+    if (!post.likeOn) {
+        
+        // cambio classe al bottone
+        let btnClicked = document.getElementById(btnId);
+        btnClicked.classList.remove('btn-light');
+        btnClicked.classList.add('btn-dark');
+        post.likeOn = true;
+        
+        // cambio numero like
+        let likesSpan = document.getElementById('numbLikes' + post.id);
+        let likesValue = Number(likesSpan.innerHTML);
+        likesValue += 1;
+        likesSpan.innerHTML = likesValue;
+
+    } else if (post.likeOn) {
+        
+        // cambio classe al bottone
+        let btnClicked = document.getElementById(btnId);
+        btnClicked.classList.remove('btn-dark');
+        btnClicked.classList.add('btn-light');
+        post.likeOn = false;
+        // cambio numero like
+        let likesSpan = document.getElementById('numbLikes' + post.id);
+        let likesValue = Number(likesSpan.innerHTML);
+        likesValue -= 1;
+        likesSpan.innerHTML = likesValue;
+
+    }
 
 }

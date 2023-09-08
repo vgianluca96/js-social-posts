@@ -61,6 +61,17 @@ function postMarkupCreation(postsContainer,posts) {
             <img src="${posts[i].profilePic}" width="50" class="rounded-circle" alt="">
         `;
     }
+
+    let postImageMarkup;
+    if (posts[i].image == '') {
+
+        postImageMarkup = ``;
+
+    } else {
+        postImageMarkup = `
+            <img src="${posts[i].image}" class="w-100 py-2" alt="">
+        `;
+    }
     
     let postMarkup = `
     <div class="text-bg-light d-flex flex-column align-items-center w-50 p-3 mb-5 rounded">
@@ -79,9 +90,9 @@ function postMarkupCreation(postsContainer,posts) {
         <div class="w-100 py-2">
             ${posts[i].text}
         </div>
-    
-        <img src="${posts[i].image}" class="w-100 py-2" alt="">
-    
+
+        ${postImageMarkup}
+        
         <div class="d-flex align-items-center justify-content-around w-100 py-2">
     
             <button id="btnLikes" class="btn btn-light fw-bold">

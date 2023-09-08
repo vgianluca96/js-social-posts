@@ -22,11 +22,11 @@ Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e inc
 let posts = [
     {
         id: 1,
-        name: 'Gianluca',
+        name: 'Gianluca Vallese',
         profilePic: 'https://picsum.photos/100/100?random=1',
         date: new Date(),
         text: 'Questo è il testo del post',
-        image: 'https://picsum.photos/100/100?random=2',
+        image: 'https://picsum.photos/400/100?random=2',
         likes: 80
     }
 

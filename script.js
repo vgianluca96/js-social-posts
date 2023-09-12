@@ -53,6 +53,9 @@ for (let i = 0; i < btnLikes.length; i++) {
     
 }
 
+// Array che conterrà gli id dei post con like
+let likedPosts = [];
+
 
 
 /* Sezione function */
@@ -145,6 +148,10 @@ function modifyLikes(post) {
         likesValue += 1;
         likesToUpdate.innerHTML = likesValue;
 
+        // Aggiungo id nell'array dei post con like
+        likedPosts.push(post.id);
+        console.log(likedPosts)
+
     } else if (post.likeOn) {
         
         // cambio classe al bottone
@@ -157,6 +164,13 @@ function modifyLikes(post) {
         let likesValue = Number(likesToUpdate.innerHTML);
         likesValue -= 1;
         likesToUpdate.innerHTML = likesValue;
+
+        likedPosts = likedPosts.filter(function (arrayItem) {
+            return arrayItem != post.id;
+        });
+
+        // Rimuovo id dall'array dei post con like
+        console.log(likedPosts);
 
     }
 
